@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+  <div th:insert="~{layout :: header}"></div>
+  <div class="container">
+    <h1 th:text="${titulo}" class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
+    <div th:object="${profesor}" th:remove="tag">
+      <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+        <li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+      </ul>
+    </div>
+    <form th:action="@{/profesor/form}" th:object="${profesor}" method="post">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Nombres</label>
+        <div class="col-sm-6">
+          <input type="text" th:field="*{nombres}" class="form-control" th:errorclass="'form-control alert-danger'" required /> <small class="form-text text-danger"
+            th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}"></small>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Apellidos</label>
+        <div class="col-sm-6">
+          <input type="text" th:field="*{apellidos}" class="form-control" th:errorclass="'form-control alert-danger'" required /> <small class="form-text text-danger"
+            th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Telefono</label>
+        <div class="col-sm-6">
+          <input type="text" th:field="*{telefono}" class="form-control" th:errorclass="'form-control alert-danger'" required /> <small class="form-text text-danger"
+            th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-6">
+          <input type="text" th:field="*{email}" class="form-control" th:errorclass="'form-control alert-danger'" required /> <small class="form-text text-danger"
+            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <input type="submit" th:value="${boton}" class="btn btn-primary" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div th:insert="~{layout :: footer}"></div>
+</body>
+</html>

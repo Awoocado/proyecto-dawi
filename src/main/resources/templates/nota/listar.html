@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.orf">
+<head th:replace="layout :: head"></head>
+<body>
+  <div th:insert="~{layout :: header}"></div>
+  <div class="container">
+    <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h1>
+    <form th:action="@{curso}" method="get">
+      <select th:field="*{cursos}" class="form-control">
+        <option th:each="curso: ${cursos}" th:text="${curso.name}" th:value="${curso.id}">
+      </select>
+      <input type="submit" value="Curso" class="btn btn-primary" />
+    </form>
+    <table class="table table-striped">
+      <thead class="bg-dark">
+        <tr style="color: white;">
+          <th>Id</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Telefono</th>
+          <th>Email</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="profesor: ${profesores}">
+          <td th:text="${profesor.id}"></td>
+          <td th:text="${profesor.nombres}"></td>
+          <td th:text="${profesor.apellidos}"></td>
+          <td th:text="${profesor.telefono}"></td>
+          <td th:text="${profesor.email}"></td>
+          <td><a class="btn btn-primary btn-xs" th:href="@{form/} + ${profesor.id}">editar</a></td>
+          <td><a class="btn btn-danger btn-xs" th:href="@{eliminar/} + ${profesor.id}" onclick="confirm('Estás seguro que quieres eliminar?');">eliminar</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:insert="~{layout :: footer}"></div>
+</body>
+</html>
